@@ -1,0 +1,32 @@
+name: ESP32 CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Pull Docker Image from Docker Hub
+        run: docker pull kshemaizfp/smart-home-env
+
+      - name: Run ESP32 Build inside Container
+        run: |
+          docker run --rm --name esp32-build kshemaizfp/smart-home-env \
+          bash -c "cd /root/esp/hello_world && idf.py build"
+
+      - name: Upload Firmware Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: esp32-firmware
+          path: /root/esp/hello_world/build/
+
