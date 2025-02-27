@@ -1,0 +1,2 @@
+source /root/smart-home-project/esp32/sensor_simulation/build/gdbinit/symbols
+source /root/smart-home-project/esp32/sensor_simulation/build/gdbinit/connect
