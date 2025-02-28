@@ -1,0 +1,2 @@
+source /root/smart-home-project/mqtt-test/build/bootloader/gdbinit/symbols
+source /root/smart-home-project/mqtt-test/build/bootloader/gdbinit/connect

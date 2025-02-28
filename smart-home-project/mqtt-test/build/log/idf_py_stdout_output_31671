@@ -1,0 +1,16 @@
+Command: ninja all
+[1/9] Performing build step for 'bootloader'
+[1/1] cd /root/smart-home-project/mqtt-test/build/bootloader/esp-idf/esptool_py && /root/.espressif/python_env/idf5.5_py3.10_env/bin/python /root/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /root/smart-home-project/mqtt-test/build/bootloader/bootloader.bin
+Bootloader binary size 0x6650 bytes. 0x9b0 bytes (9%) free.
+[2/7] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/mqtt_test.c.obj
+[3/7] Linking C static library esp-idf/main/libmain.a
+[4/7] Generating ld/sections.ld
+[5/7] Linking CXX executable mqtt-test.elf
+[6/7] Generating binary image from built executable
+esptool.py v4.9.dev5
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated /root/smart-home-project/mqtt-test/build/mqtt-test.bin
+[7/7] cd /root/smart-home-project/mqtt-test/build/esp-idf/esptool_py && /root/.espressif/python_env/idf5.5_py3.10_env/bin/python /root/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /root/smart-home-project/mqtt-test/build/partition_table/partition-table.bin /root/smart-home-project/mqtt-test/build/mqtt-test.bin
+mqtt-test.bin binary size 0x784c0 bytes. Smallest app partition is 0x100000 bytes. 0x87b40 bytes (53%) free.

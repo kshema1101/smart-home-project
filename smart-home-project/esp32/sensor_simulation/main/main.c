@@ -1,33 +1,33 @@
 #include <stdio.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include <stdlib.h>
+#include <unistd.h>
 
-// Simulated sensor function
-void simulate_sensors() {
-    static int temp = 25;      // Starting temperature
-    static int pressure = 1000; // Starting pressure (hPa)
-    static int motion = 0;      // No motion initially
-
-    temp += (rand() % 3 - 1);       // Random fluctuation
-    pressure += (rand() % 5 - 2);   // Random fluctuation
-    motion = rand() % 2;            // 0 or 1 (No motion or Motion detected)
-
-    printf("\n[SENSOR DATA] Temperature: %d°C | Pressure: %dhPa | Motion: %s\n",
-           temp, pressure, motion ? "Detected" : "None");
-    fflush(stdout);  // 🔹 Ensure immediate output in QEMU
+void simulate_sensor_readings(float *temperature, float *humidity) {
+    *temperature = 20.0 + (rand() % 10);  // Simulate 20-30°C
+    *humidity = 40.0 + (rand() % 30);     // Simulate 40-70% RH
 }
 
-void app_main(void) {
-    printf("🚀 ESP32 Sensor Simulation Started...\n");
-    fflush(stdout);  // 🔹 Ensure startup message is printed immediately
-
-    vTaskDelay(500 / portTICK_PERIOD_MS);  // Small delay to allow message to appear
-
+int main() {
+    FILE *file;
+    
     while (1) {
-        printf("🟢 Running simulate_sensors()...\n"); // 🔹 Debug print statement
-        fflush(stdout);
+        float temperature, humidity;
+        simulate_sensor_readings(&temperature, &humidity);
+        
+        // Open the file and write sensor data
+        file = fopen("/Users/nikhil/smart-home-project/smart-home-project/esp32/sensor_simulation/sensor_data.txt", "w");
+        if (file == NULL) {
+            printf("Error opening file!\n");
+            return 1;
+        }
+        
+        fprintf(file, "%.2f,%.2f\n", temperature, humidity);
+        fclose(file);
 
-        simulate_sensors();
-        vTaskDelay(2000 / portTICK_PERIOD_MS);
+        printf("Sensor Data Saved: Temperature=%.2f°C, Humidity=%.2f%%\n", temperature, humidity);
+        
+        sleep(5);  // Simulate data update every 5 seconds
     }
+    
+    return 0;
 }
